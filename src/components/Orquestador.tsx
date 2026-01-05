@@ -54,7 +54,6 @@ function Orquestador() {
 
       // comprobar ganador después de actualizar tablero
       const result = checkWinner(newBoard);
-      console.log("Este es el result: ", result);
       if (result.winner !== null) {
         setWinner(result.winner);
         setWinningLine(result.line ?? null);
