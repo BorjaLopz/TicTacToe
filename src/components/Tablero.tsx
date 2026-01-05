@@ -1,4 +1,5 @@
 import { Player } from "../utils/enum";
+import type { GameStatus } from "../utils/types";
 import Casilla from "./Casilla";
 import { useRef, useState, useEffect } from "react";
 
@@ -8,6 +9,8 @@ type TableroProps = {
   onCellClick: (position: number) => void;
   winningLine: number[] | null;
   winner: Player | null;
+  gameStatus: GameStatus;
+  highlightedCells: { [key in Player]: number | null };
 };
 
 function Tablero({
@@ -16,6 +19,8 @@ function Tablero({
   onCellClick,
   winningLine,
   winner,
+  gameStatus,
+  highlightedCells,
 }: TableroProps) {
   // Referencia al contenedor del grid para medir posiciones relativas
   const gridRef = useRef<HTMLDivElement>(null);
@@ -85,7 +90,7 @@ function Tablero({
     }
 
     return {
-      text: `Turno de ${currentPlayer === Player.P1 ? "X" : "O"}`,
+      text: `TURNO DE ${currentPlayer === Player.P1 ? "X" : "O"}`,
       color: currentPlayer === Player.P1 ? "text-blue-500" : "text-red-500",
     };
   };
@@ -95,8 +100,12 @@ function Tablero({
   return (
     // Envolvemos en un contenedor flex para centrar contenido
     <div className="flex flex-col items-center justify-center p-4">
-      <h2 className="mb-6 text-2xl font-bold no-select">
-        <span className={status.color}>{status.text}</span>
+      <h2 className="mb-6 text-2xl font-extrabold no-select">
+        <span className={`${status.color}`}>{gameStatus}</span>
+      </h2>
+
+      <h2 className="mb-6 text-2xl font-extrabold no-select">
+        <span className={`${status.color}`}>{status.text}</span>
       </h2>
       {/* Contenedor del tablero con sombra y padding balanceado */}
       <div className="relative aspect-square w-72 sm:w-96 bg-blue-100 rounded-2xl p-3 shadow-xl border-4 border-blue-200">
@@ -117,6 +126,10 @@ function Tablero({
               position={index}
               onCellClick={onCellClick}
               value={board[index]}
+              highlighted={
+                board[index] !== null &&
+                highlightedCells?.[board[index]] === index
+              }
             />
           ))}
 

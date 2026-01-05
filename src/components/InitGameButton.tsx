@@ -1,23 +1,23 @@
-type NewGameButtonProps = {
+type InitGameButtonProps = {
   onReset: () => void;
 };
 
-function NewGameButton({ onReset }: NewGameButtonProps) {
+function InitGameButton({ onReset }: InitGameButtonProps) {
   return (
     <button
       onClick={onReset}
       className="
         mt-6 px-6 py-3
-        bg-green-600 text-white
+        bg-blue-600 text-white
         rounded-xl font-semibold
-        hover:bg-green-700
+        hover:bg-blue-700
         transition
         shadow-md
       "
     >
-      Nueva partida
+      Inicio
     </button>
   );
 }
 
-export default NewGameButton;
+export default InitGameButton;

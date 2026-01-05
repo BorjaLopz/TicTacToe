@@ -4,9 +4,10 @@ type CasillaType = {
   position: number;
   onCellClick: (position: number) => void;
   value: Player | null;
+  highlighted?: boolean;
 };
 
-function Casilla({ position, onCellClick, value }: CasillaType) {
+function Casilla({ position, onCellClick, value, highlighted }: CasillaType) {
   const isEmpty = value === null;
 
   return (
@@ -25,6 +26,7 @@ function Casilla({ position, onCellClick, value }: CasillaType) {
             : "bg-gray-50 cursor-default"
         }
         ${value === Player.P1 ? "text-blue-500" : "text-red-500"}
+        ${highlighted ? "animate-pulse" : ""}
       `}
     >
       <span className="select-none">

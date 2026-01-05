@@ -1,5 +1,7 @@
+import type { GameStatus } from "../utils/types";
+
 type StartScreenProps = {
-  onStart: () => void;
+  onStart: (mode: GameStatus) => void;
 };
 
 function StartScreen({ onStart }: StartScreenProps) {
@@ -15,12 +17,21 @@ function StartScreen({ onStart }: StartScreenProps) {
           <span className="text-red-500">O</span>
         </div>
 
-        <button
-          onClick={onStart}
-          className="mt-4 px-8 py-3 rounded-xl bg-blue-600 text-white text-lg font-semibold hover:bg-blue-700 transition"
-        >
-          Empezar partida
-        </button>
+        <div className="flex justify-center items-center gap-4">
+          <button
+            onClick={() => onStart("NORMAL")}
+            className="mt-4 px-8 py-3 rounded-xl bg-blue-600 text-white text-lg font-semibold hover:bg-blue-700 transition"
+          >
+            <span className="text-green-500 font-bold uppercase">normal</span>
+          </button>
+
+          <button
+            onClick={() => onStart("CLASICA")}
+            className="mt-4 px-8 py-3 rounded-xl bg-blue-600 text-white text-lg font-semibold hover:bg-blue-700 transition"
+          >
+            <span className="text-orange-500 font-bold uppercase">clasica</span>
+          </button>
+        </div>
       </div>
     </div>
   );

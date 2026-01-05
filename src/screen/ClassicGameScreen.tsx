@@ -4,7 +4,7 @@ import Tablero from "../components/Tablero";
 import { Player } from "../utils/enum";
 import type { GameStatus } from "../utils/types";
 
-type GameScreenProps = {
+type ClassicGameScreenProps = {
   board: Array<Player | null>;
   currentPlayer: Player;
   onCellClick: (position: number) => void;
@@ -13,9 +13,10 @@ type GameScreenProps = {
   onInit: () => void;
   winner: Player | null;
   gameStatus: GameStatus;
+  highlightedCells: { [key in Player]: number | null };
 };
 
-function GameScreen({
+function ClassicGameScreen({
   board,
   currentPlayer,
   onCellClick,
@@ -24,7 +25,8 @@ function GameScreen({
   onInit,
   winner,
   gameStatus,
-}: GameScreenProps) {
+  highlightedCells,
+}: ClassicGameScreenProps) {
   return (
     <>
       <Tablero
@@ -34,6 +36,7 @@ function GameScreen({
         winningLine={winningLine}
         winner={winner}
         gameStatus={gameStatus}
+        highlightedCells={highlightedCells}
       />
       <div className="flex items-center justify-center gap-4">
         <InitGameButton onReset={onInit} />
@@ -43,4 +46,4 @@ function GameScreen({
   );
 }
 
-export default GameScreen;
+export default ClassicGameScreen;
