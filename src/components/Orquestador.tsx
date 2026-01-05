@@ -1,7 +1,5 @@
 import { useState } from "react";
-import Tablero from "./Tablero";
 import { Player } from "../utils/enum";
-import NewGameButton from "./NewGameButton";
 import StartScreen from "../screen/StartScreen";
 import GameScreen from "../screen/GameScreen";
 
