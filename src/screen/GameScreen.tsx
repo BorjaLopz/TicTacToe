@@ -8,6 +8,7 @@ type GameScreenProps = {
   onCellClick: (position: number) => void;
   winningLine: number[] | null;
   onReset: () => void;
+  winner: Player | null;
 };
 
 function GameScreen({
@@ -16,6 +17,7 @@ function GameScreen({
   onCellClick,
   winningLine,
   onReset,
+  winner,
 }: GameScreenProps) {
   return (
     <>
@@ -24,6 +26,7 @@ function GameScreen({
         board={board}
         onCellClick={onCellClick}
         winningLine={winningLine}
+        winner={winner}
       />
 
       <NewGameButton onReset={onReset} />

@@ -88,6 +88,7 @@ function Orquestador() {
         onCellClick={handleOnCellClick}
         onReset={handleResetGame}
         winningLine={winningLine}
+        winner={winner}
       />
     );
   }

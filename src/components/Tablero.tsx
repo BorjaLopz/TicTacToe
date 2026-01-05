@@ -7,6 +7,7 @@ type TableroProps = {
   currentPlayer: Player;
   onCellClick: (position: number) => void;
   winningLine: number[] | null;
+  winner: Player | null;
 };
 
 function Tablero({
@@ -14,6 +15,7 @@ function Tablero({
   board,
   onCellClick,
   winningLine,
+  winner,
 }: TableroProps) {
   // Referencia al contenedor del grid para medir posiciones relativas
   const gridRef = useRef<HTMLDivElement>(null);
@@ -65,22 +67,42 @@ function Tablero({
     }
   }, [winningLine]);
 
+  const getStatusText = () => {
+    if (winner === Player.P1) {
+      return { text: "Gana X", color: "text-blue-600" };
+    }
+
+    if (winner === Player.P2) {
+      return { text: "Gana O", color: "text-red-600" };
+    }
+
+    if (
+      !winner &&
+      winningLine === null &&
+      board.every((cell) => cell !== null)
+    ) {
+      return { text: "Empate", color: "text-gray-600" };
+    }
+
+    return {
+      text: `Turno de ${currentPlayer === Player.P1 ? "X" : "O"}`,
+      color: currentPlayer === Player.P1 ? "text-blue-500" : "text-red-500",
+    };
+  };
+
+  const status = getStatusText();
+
   return (
     // Envolvemos en un contenedor flex para centrar contenido
     <div className="flex flex-col items-center justify-center p-4">
-      <h2 className="mb-6 text-2xl font-bold text-gray-700 no-select">
-        Turno de{" "}
-        <span
-          className={
-            currentPlayer === Player.P1 ? "text-blue-500" : "text-red-500"
-          }
-        >
-          {currentPlayer === Player.P1 ? "X" : "O"}
-        </span>
+      <h2 className="mb-6 text-2xl font-bold no-select">
+        <span className={status.color}>{status.text}</span>
       </h2>
-
       {/* Contenedor del tablero con sombra y padding balanceado */}
       <div className="relative aspect-square w-72 sm:w-96 bg-blue-100 rounded-2xl p-3 shadow-xl border-4 border-blue-200">
+        {winningLine && (
+          <div className="absolute inset-0 rounded-2xl z-10 pointer-events-auto" />
+        )}
         <div
           ref={gridRef}
           className="relative grid grid-cols-3 grid-rows-3 gap-3 w-full h-full"
